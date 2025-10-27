@@ -20,7 +20,7 @@
 - **Unique Optimal Solution:**
   GVPO guarantees convergence to a unique solution that maximizes the following objective:
 
-  $$\max_{\pi_{\theta}} \; \mathbb{E}_{x\sim\mathcal{D}, y\sim\pi_\theta(y|x)}[R(x,y)] \; - \; \beta \mathbb{D}_{KL}[\pi_\theta(y|x)\,||\,\pi_{\theta'}(y|x)]$$
+  $$max_{\pi_{\theta}} \mathbb{E}_{x\sim\mathcal{D},y\sim\pi_\theta(y|x)}[R(x,y)]-\beta\mathbb{D}_{KL}[\pi_\theta(y|x)||\pi_{\theta^\prime}(y|x)]$$
 
 - **No Importance Sampling:**
   Improves stability by eliminating the need for importance weighting.
@@ -75,7 +75,7 @@ Below we summarize the main components and logic of this GVPO implementation.
 
 This module defines the core **GVPO loss function**, formulated as a Mean Squared Error (MSE):
 
-$\mathcal{L}_{\text{GVPO}}(\theta)=\frac{1}{2}\sum_{x, \{y_i\} } \sum_{i=1}^k [(R_\theta(x,y_i)-\overline{R_\theta(x,\{y_i\})}-(R(x,y_i)-\overline{R(x,\{y_i\})}]^2$
+$$\mathcal{L}_{\text{GVPO}}(\theta)=\frac{1}{2}\sum_{x, \{y_i\} } \sum_{i=1}^k [(R_\theta(x,y_i)-\overline{R_\theta(x,\{y_i\})}-(R(x,y_i)-\overline{R(x,\{y_i\})}]^2$$
 
 This function aggregates statistics across GPUs to compute the group-mean log ratios.
 
